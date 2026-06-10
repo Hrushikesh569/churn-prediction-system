@@ -1,0 +1,73 @@
+# ============================================================
+# Churn Prediction System — Configuration
+# ============================================================
+
+data:
+  urls:
+    primary: "https://raw.githubusercontent.com/IBM/telco-customer-churn-on-icp4d/master/data/Telco-Customer-Churn.csv"
+    fallback: "https://raw.githubusercontent.com/IBM/telco-customer-churn/master/WA_Fn-UseC_-Telco-Customer-Churn.csv"
+  cache_path: "outputs/data/telco_churn.csv"
+  target_column: "Churn"
+
+split:
+  train_ratio: 0.70
+  val_ratio: 0.15
+  test_ratio: 0.15
+  random_state: 42
+
+models:
+  logistic_regression:
+    C_values: [0.01, 0.1, 1, 10]
+    max_iter: 1000
+    random_state: 42
+  random_forest:
+    n_estimators: 200
+    max_depth: 10
+    min_samples_split: 5
+    min_samples_leaf: 2
+    random_state: 42
+  xgboost:
+    n_estimators: 300
+    max_depth: 5
+    learning_rate: 0.1
+    subsample: 0.8
+    reg_alpha: 0.1
+    reg_lambda: 1.0
+    early_stopping_rounds: 50
+    random_state: 42
+
+tuning:
+  n_trials: 50
+  search_space:
+    n_estimators: [100, 200, 300, 500]
+    max_depth: [3, 5, 7, 10]
+    learning_rate: [0.01, 0.05, 0.1, 0.3]
+    subsample: [0.6, 0.8, 1.0]
+    reg_alpha: [0.0, 0.1, 1.0, 10.0]
+    reg_lambda: [0.0, 0.1, 1.0, 10.0]
+
+cv:
+  n_folds: 5
+  random_state: 42
+
+diagnostics:
+  overfit_threshold: 0.05
+  underfit_threshold: 0.65
+
+bootstrap:
+  n_iterations: 1000
+  random_state: 42
+
+validation_curves:
+  max_depth: [1, 3, 5, 7, 10]
+  n_estimators: [50, 100, 200, 300]
+
+outputs:
+  plots_dir: "outputs/plots"
+  models_dir: "outputs/models"
+  reports_dir: "outputs/reports"
+  data_dir: "outputs/data"
+
+mlflow:
+  experiment_name: "churn_prediction"
+  tracking_uri: "sqlite:///mlflow.db"
