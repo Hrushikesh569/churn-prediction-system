@@ -18,8 +18,8 @@ COPY app/ app/
 COPY src/ src/
 COPY outputs/models/ outputs/models/
 
-# Expose default port
-EXPOSE 8000
+# Expose default Hugging Face Spaces port
+EXPOSE 7860
 
-# Run FastAPI using uvicorn (binds to 0.0.0.0 and reads port dynamically from environment)
-CMD ["sh", "-c", "uvicorn app.app:app --host 0.0.0.0 --port ${PORT:-8000}"]
+# Run FastAPI using uvicorn on port 7860
+CMD ["uvicorn", "app.app:app", "--host", "0.0.0.0", "--port", "7860"]
