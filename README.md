@@ -1,14 +1,3 @@
----
-title: Churn Prediction Dashboard
-emoji: 🚀
-colorFrom: green
-colorTo: red
-sdk: docker
-pinned: false
-license: mit
-short_description: Built a machine learning-powered dashboard to predict customer churn
----
-
 # Churn Prediction System
 
 This project is a complete Machine Learning pipeline and web application designed to predict customer churn. It uses an ensemble voting classifier to predict whether a customer will leave based on their demographics, account information, and service usage.
